@@ -1,0 +1,635 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #B8907E;
+  --primary-light: #F5EAE4;
+  --primary-dark: #8B6756;
+  --bg: #FAFAFA;
+  --text: #333333;
+  --text-light: #888888;
+  --border: #E8DDD8;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Header ===== */
+.app-header {
+  background: white;
+  padding: 16px 20px 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-header h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 16px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Progress Bar ===== */
+.progress-bar {
+  display: flex;
+  align-items: flex-start;
+  padding-bottom: 12px;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  position: relative;
+}
+
+.progress-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+
+.progress-step.done:not(:last-child)::after,
+.progress-step.active:not(:last-child)::after {
+  background: var(--primary);
+}
+
+.step-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-light);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.progress-step.active .step-dot {
+  background: var(--primary);
+  color: white;
+}
+
+.progress-step.done .step-dot {
+  background: var(--primary-dark);
+  color: white;
+}
+
+.progress-step span {
+  font-size: 10px;
+  color: var(--text-light);
+}
+
+.progress-step.active span {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ===== Main ===== */
+.app-main {
+  padding: 20px;
+  flex: 1;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--primary-dark);
+}
+
+/* ===== Loading ===== */
+.loading-screen,
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  gap: 12px;
+  color: var(--text-light);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Announcement ===== */
+.announcement {
+  background: var(--primary-light);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+
+.announcement-fixed {
+  height: 360px;
+  overflow-y: auto;
+}
+
+.announcement-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--primary-dark);
+  white-space: pre-line;
+}
+
+/* ===== Service Cards ===== */
+.service-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.service-card {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.service-card:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.service-card.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: var(--shadow);
+}
+
+.service-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.service-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+/* ===== Addon Cards ===== */
+.addon-hint {
+  color: var(--text-light);
+  font-size: 14px;
+  margin-top: -12px;
+  margin-bottom: 20px;
+}
+
+.addon-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.addon-card {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.addon-card:hover {
+  border-color: var(--primary);
+}
+
+.addon-card.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.addon-check {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.addon-card.selected .addon-check {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.addon-info {
+  flex: 1;
+}
+
+.addon-name {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.addon-summary {
+  background: var(--primary-light);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 20px;
+}
+
+/* ===== Calendar ===== */
+.calendar {
+  background: white;
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.calendar-nav button {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 8px;
+  line-height: 1;
+}
+
+.calendar-nav button:disabled {
+  color: var(--border);
+  cursor: not-allowed;
+}
+
+.calendar-nav span {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.weekday-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-light);
+  padding: 4px 0;
+  font-weight: 600;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  background: none;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-day:hover:not(.disabled) {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.calendar-day.selected {
+  background: var(--primary) !important;
+  color: white;
+  font-weight: 700;
+}
+
+.calendar-day.disabled {
+  color: var(--border);
+  cursor: not-allowed;
+}
+
+/* ===== Time Slots ===== */
+.time-group {
+  margin-bottom: 24px;
+}
+
+.time-group-label {
+  font-size: 14px;
+  color: var(--text-light);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.time-slot {
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 4px;
+  font-size: 14px;
+  cursor: pointer;
+  background: white;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+.time-slot:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.time-slot.selected {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+.date-hint {
+  color: var(--text-light);
+  font-size: 14px;
+  margin-top: -12px;
+  margin-bottom: 20px;
+}
+
+.no-slots {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-light);
+}
+
+.no-slots p {
+  margin-bottom: 16px;
+}
+
+/* ===== Form ===== */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+}
+
+.field-error {
+  display: block;
+  font-size: 12px;
+  color: #E05C5C;
+  margin-top: 6px;
+}
+
+/* ===== Confirm Card ===== */
+.confirm-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.confirm-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.confirm-row .label {
+  color: var(--text-light);
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.confirm-row .value {
+  font-weight: 600;
+  font-size: 14px;
+  text-align: right;
+}
+
+.confirm-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+/* ===== Complete ===== */
+.step-complete {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.success-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.step-complete h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.step-complete > p {
+  color: var(--text-light);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.result-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.result-row:last-child {
+  border-bottom: none;
+}
+
+.result-row .label {
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.result-row .value {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.booking-id {
+  color: var(--primary);
+  font-size: 18px !important;
+  letter-spacing: 0.05em;
+}
+
+.reminder-text {
+  color: var(--text-light);
+  font-size: 13px;
+  background: var(--primary-light);
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-primary:disabled {
+  background: var(--border);
+  cursor: not-allowed;
+}
+
+.btn-back {
+  background: none;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  width: 100%;
+}
+
+.btn-back:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.error-msg {
+  color: #E05C5C;
+  font-size: 14px;
+  text-align: center;
+  padding: 12px;
+  background: #FEF2F2;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
