@@ -1,41 +1,21 @@
-const GAS_URL = import.meta.env.VITE_GAS_URL;
-
-async function gasGet(params) {
-  const url = new URL(GAS_URL);
-  Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, String(v)));
-  const res = await fetch(url.toString());
+async function apiGet(path) {
+  const res = await fetch('/api' + path);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
 
-async function gasPost(data) {
-  const body = new URLSearchParams();
-  body.append('payload', JSON.stringify(data));
-  const res = await fetch(GAS_URL, { method: 'POST', body });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+async function apiPost(path, data) {
+  const res = await fetch('/api' + path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
   return res.json();
 }
 
-export function getAnnouncement() {
-  return gasGet({ action: 'getAnnouncement' });
-}
-
-export function getServices() {
-  return gasGet({ action: 'getServices' });
-}
-
-export function getAddons() {
-  return gasGet({ action: 'getAddons' });
-}
-
-export function getClosedDates() {
-  return gasGet({ action: 'getClosedDates' });
-}
-
-export function getAvailableSlots(date, duration) {
-  return gasGet({ action: 'getAvailableSlots', date, duration });
-}
-
-export function createBooking(data) {
-  return gasPost({ action: 'createBooking', ...data });
-}
+export const getAnnouncement = () => apiGet('/announcement');
+export const getServices = () => apiGet('/services');
+export const getAddons = () => apiGet('/addons');
+export const getClosedDates = () => apiGet('/closed-dates');
+export const getAvailableSlots = (date, duration) => apiGet(`/slots?date=${date}&duration=${duration}`);
+export const createBooking = (data) => apiPost('/bookings', data);
