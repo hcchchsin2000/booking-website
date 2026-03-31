@@ -61,7 +61,7 @@ export default function StepConfirm({ booking, totalDuration, formStart, onConfi
         </div>
         <div className="confirm-row">
           <span className="label">費用</span>
-          <span className="value">NT$ {totalPrice.toLocaleString()}</span>
+          <span className="value price">NT$ {totalPrice.toLocaleString()}</span>
         </div>
 
         <div className="confirm-divider" />

@@ -4,7 +4,11 @@ export default function StepComplete({ bookingResult, booking }) {
 
   return (
     <div className="step-complete">
-      <div className="success-icon">✅</div>
+      <div className="success-icon">
+        <svg viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      </div>
       <h2>預約成功！</h2>
       <p>{hasEmail ? '確認信已寄送至您的信箱' : '預約已完成，請截圖保存以下資訊'}</p>
 

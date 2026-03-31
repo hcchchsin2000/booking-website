@@ -48,7 +48,8 @@ export default function StepDate({ selected, onSelect, onBack }) {
     const isPast = date < today;
     const isTooFar = date > maxDate;
     const isClosed = closedDates.includes(dateStr);
-    cells.push({ day: d, dateStr, disabled: isPast || isTooFar || isClosed });
+    const isToday = formatDate(date) === formatDate(today);
+    cells.push({ day: d, dateStr, disabled: isPast || isTooFar || isClosed, isToday });
   }
 
   const canPrev =
@@ -75,7 +76,7 @@ export default function StepDate({ selected, onSelect, onBack }) {
             return (
               <button
                 key={cell.dateStr}
-                className={`calendar-day${cell.disabled ? ' disabled' : ''}${selected === cell.dateStr ? ' selected' : ''}`}
+                className={`calendar-day${cell.disabled ? ' disabled' : ''}${cell.isToday ? ' today' : ''}${selected === cell.dateStr ? ' selected' : ''}`}
                 onClick={() => !cell.disabled && onSelect(cell.dateStr)}
                 disabled={cell.disabled}
               >

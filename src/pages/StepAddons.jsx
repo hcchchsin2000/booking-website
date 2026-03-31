@@ -50,9 +50,7 @@ export default function StepAddons({ selected, serviceName, serviceDuration, onS
                 <div className="addon-check">{isChosen ? '✓' : ''}</div>
                 <div className="addon-info">
                   <div className="addon-name">{addon.name}</div>
-                  <div className="service-meta">
-                    <span>+NT$ {addon.price.toLocaleString()}</span>
-                  </div>
+                  <div className="addon-price">+NT$ {addon.price.toLocaleString()}</div>
                 </div>
               </button>
             );

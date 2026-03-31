@@ -19,6 +19,7 @@ export default function StepService({ selected, onSelect }) {
   return (
     <div className="step-service">
       <h2>選擇服務項目</h2>
+      <p className="step-subtitle">點選項目繼續預約</p>
       <div className="service-list">
         {services.map(service => (
           <button
@@ -27,9 +28,12 @@ export default function StepService({ selected, onSelect }) {
             onClick={() => onSelect(service)}
           >
             <div className="service-name">{service.name}</div>
+            {service.description && (
+              <div className="service-desc">{service.description}</div>
+            )}
             <div className="service-meta">
               <span>⏱ {service.duration} 分鐘</span>
-              <span>NT$ {service.price.toLocaleString()}</span>
+              <span className="service-price">NT$ {service.price.toLocaleString()}</span>
             </div>
           </button>
         ))}
