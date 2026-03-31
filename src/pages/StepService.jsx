@@ -18,8 +18,8 @@ export default function StepService({ selected, onSelect }) {
 
   return (
     <div className="step-service">
-      <h2>選擇服務項目</h2>
-      <p className="step-subtitle">點選項目繼續預約</p>
+      <h2>服務項目</h2>
+      <p className="step-subtitle">選擇一項繼續預約</p>
       <div className="service-list">
         {services.map(service => (
           <button
@@ -27,13 +27,20 @@ export default function StepService({ selected, onSelect }) {
             className={`service-card${selected?.id === service.id ? ' selected' : ''}`}
             onClick={() => onSelect(service)}
           >
-            <div className="service-name">{service.name}</div>
-            {service.description && (
-              <div className="service-desc">{service.description}</div>
-            )}
-            <div className="service-meta">
-              <span>⏱ {service.duration} 分鐘</span>
-              <span className="service-price">NT$ {service.price.toLocaleString()}</span>
+            <div className="service-card-inner">
+              <div className="service-name">{service.name}</div>
+              {service.description && (
+                <div className="service-desc">{service.description}</div>
+              )}
+              <div className="service-tags">
+                <span className="service-tag">{service.duration} min</span>
+                <span className="service-tag price">NT$ {service.price.toLocaleString()}</span>
+              </div>
+            </div>
+            <div className="service-card-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
           </button>
         ))}

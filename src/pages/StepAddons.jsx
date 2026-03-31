@@ -47,7 +47,9 @@ export default function StepAddons({ selected, serviceName, serviceDuration, onS
                 className={`addon-card${isChosen ? ' selected' : ''}`}
                 onClick={() => toggle(addon)}
               >
-                <div className="addon-check">{isChosen ? '✓' : ''}</div>
+                <div className="addon-check">
+                  <svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3" /></svg>
+                </div>
                 <div className="addon-info">
                   <div className="addon-name">{addon.name}</div>
                   <div className="addon-price">+NT$ {addon.price.toLocaleString()}</div>
