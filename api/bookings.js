@@ -80,5 +80,29 @@ export default async function handler(req, res) {
   });
 
   if (insertErr) return res.status(500).json({ error: insertErr.message });
+
+  // 同步到 Google Sheets（不影響預約結果）
+  try {
+    const gasUrl = process.env.GAS_URL;
+    if (gasUrl) {
+      const record = {
+        booking_id: bookingId,
+        customer_name: data.displayName,
+        phone: data.phone,
+        email: data.email || '',
+        service: data.service,
+        booking_date: data.date,
+        booking_time: data.time,
+        duration: dur,
+        addons: data.addons || '',
+        notes: data.notes || '',
+        status: '已確認',
+      };
+      const syncBody = new URLSearchParams();
+      syncBody.append('payload', JSON.stringify({ type: 'INSERT', record }));
+      await fetch(gasUrl, { method: 'POST', body: syncBody });
+    }
+  } catch (_) { /* sync failure won't block booking */ }
+
   res.json({ success: true, bookingId });
 }
